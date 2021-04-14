@@ -1,4 +1,5 @@
 const fs = require('fs');
+const os = require('os');
 const nearAPI = require('near-api-js');
 const getConfig = require('../../src/config');
 const { nodeUrl, networkId, contractName, contractMethods, accessKeyMethods } = getConfig();
@@ -7,7 +8,7 @@ const {
 	Near, Account, Contract, KeyPair,
 } = nearAPI;
 
-const credentials = JSON.parse(fs.readFileSync(process.env.HOME + '/.near-credentials/default/' + contractName + '.json'));
+const credentials = JSON.parse(fs.readFileSync(os.homedir() + '/.near-credentials/default/' + contractName + '.json'));
 const keyStore = new InMemoryKeyStore();
 keyStore.setKey(networkId, contractName, KeyPair.fromString(credentials.private_key));
 const near = new Near({
